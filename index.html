@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>かぶちゃんラジオ投稿フォーム</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+        h3 { text-align: center; }
+        label { display: block; margin-top: 15px; font-weight: bold; font-size: 14px; }
+        input, textarea { 
+            width: 100%; 
+            padding: 10px; 
+            margin-top: 5px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            box-sizing: border-box; 
+            font-size: 16px; 
+        }
+        button { 
+            width: 100%; 
+            margin-top: 25px; 
+            padding: 15px; 
+            background: #000; 
+            color: #fff; 
+            border: none; 
+            border-radius: 4px;
+            font-size: 18px; 
+            font-weight: bold;
+            cursor: pointer; 
+        }
+        button:hover { background: #333; }
+    </style>
+</head>
+<body>
+
+    <h3>📻 かぶちゃんラジオ投稿作成</h3>
+    
+    <label for="radioName">ラジオネーム</label>
+    <input type="text" id="radioName" placeholder="例：岡山の桃太郎">
+
+    <label for="message">ふつおた（メッセージ）</label>
+    <textarea id="message" rows="6" placeholder="番組へのメッセージを入力..."></textarea>
+
+    <label for="songRequest">曲のリクエスト</label>
+    <input type="text" id="songRequest" placeholder="歌手名 / 曲名">
+
+    <label for="hashtag">ハッシュタグ</label>
+    <input type="text" id="hashtag" value="#かぶちゃんラジオ">
+
+    <button onclick="generatePost()">Xで投稿を作成する</button>
+
+    <script>
+        function generatePost() {
+            const rn = document.getElementById("radioName").value;
+            const msg = document.getElementById("message").value;
+            const song = document.getElementById("songRequest").value;
+            const tag = document.getElementById("hashtag").value;
+
+            let finalText = "";
+
+            if (rn) {
+                finalText += "【RN】" + rn + "\n\n";
+            }
+
+            if (msg) {
+                finalText += msg + "\n\n";
+            }
+
+            if (song) {
+                finalText += "🎵リクエスト：\n" + song + "\n\n";
+            }
+
+            if (tag) {
+                finalText += tag;
+            }
+
+            if (finalText.trim() === "") {
+                alert("内容を入力してください");
+                return;
+            }
+
+            const encodedText = encodeURIComponent(finalText);
+            window.open("https://twitter.com/intent/tweet?text=" + encodedText, '_blank');
+        }
+    </script>
+</body>
+</html>
